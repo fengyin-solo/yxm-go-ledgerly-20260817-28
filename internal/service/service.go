@@ -240,7 +240,7 @@ func (s *TransactionService) Create(ctx context.Context, t *model.Transaction) (
 	t.CreatedAt = s.now().UTC()
 	// Adjust account balance
 	if t.Type == model.TransactionTypeCredit {
-		account.Debit(t.Amount)
+		account.Credit(t.Amount)
 	} else {
 		account.Debit(t.Amount)
 	}
