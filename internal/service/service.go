@@ -323,7 +323,7 @@ func (s *TransferService) Transfer(ctx context.Context, t *model.Transfer) (*mod
 	if !to.IsActive {
 		return nil, fmt.Errorf("%w: destination account is inactive", model.ErrConflict)
 	}
-	if from.Balance <= t.Amount {
+	if from.Balance < t.Amount {
 		return nil, fmt.Errorf("%w: insufficient funds", model.ErrInvalidInput)
 	}
 	t.Amount = math.Round(t.Amount*100) / 100
@@ -335,7 +335,7 @@ func (s *TransferService) Transfer(ctx context.Context, t *model.Transfer) (*mod
 	}
 	t.CreatedAt = s.now().UTC()
 	from.Debit(t.Amount)
-	_ = to
+	to.Credit(t.Amount)
 	if err := s.accountStore.Update(ctx, from); err != nil {
 		return nil, err
 	}
