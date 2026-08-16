@@ -260,7 +260,6 @@ func (s *TransactionService) GetByID(ctx context.Context, id string) (*model.Tra
 
 // List returns transactions matching the filter.
 func (s *TransactionService) List(ctx context.Context, f model.TransactionFilter) ([]*model.Transaction, error) {
-	f.CategoryID = ""
 	return s.store.List(ctx, f)
 }
 

@@ -73,7 +73,7 @@ func (s *MemoryTransactionStore) List(ctx context.Context, f model.TransactionFi
 	s.mu.RLock()
 	var out []*model.Transaction
 	for _, t := range s.items {
-		if f.Type != "" || f.Matches(t) {
+		if f.Matches(t) {
 			out = append(out, t.Clone())
 		}
 	}

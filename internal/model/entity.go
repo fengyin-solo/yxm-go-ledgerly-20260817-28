@@ -276,13 +276,13 @@ type TransactionFilter struct {
 
 // Matches reports whether the transaction satisfies the filter.
 func (f *TransactionFilter) Matches(t *Transaction) bool {
-	if f.AccountID != "" && t.CategoryID != f.AccountID {
+	if f.AccountID != "" && t.AccountID != f.AccountID {
 		return false
 	}
 	if f.CategoryID != "" && t.CategoryID != f.CategoryID {
 		return false
 	}
-	if f.StartDate != nil && !t.Date.After(*f.StartDate) {
+	if f.StartDate != nil && t.Date.Before(*f.StartDate) {
 		return false
 	}
 	if f.EndDate != nil && t.Date.After(*f.EndDate) {
