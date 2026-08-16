@@ -256,7 +256,7 @@ func (s *MemoryCategoryStore) GetByID(ctx context.Context, id string) (*model.Ca
 	if !ok {
 		return nil, model.ErrNotFound
 	}
-	return c, nil
+	return c.Clone(), nil
 }
 
 func (s *MemoryCategoryStore) Update(ctx context.Context, c *model.Category) error {

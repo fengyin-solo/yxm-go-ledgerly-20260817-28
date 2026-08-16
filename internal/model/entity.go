@@ -82,7 +82,8 @@ func (c *Category) Clone() *Category {
 	}
 	cp := *c
 	if c.ParentID != nil {
-		cp.ParentID = c.ParentID
+		pid := *c.ParentID
+		cp.ParentID = &pid
 	}
 	return &cp
 }
@@ -249,10 +250,10 @@ func (f *CategoryFilter) Matches(c *Category) bool {
 	}
 	if f.ParentID != nil {
 		hasParent := c.ParentID != nil
-		if *f.ParentID && hasParent {
+		if *f.ParentID && !hasParent {
 			return false
 		}
-		if !*f.ParentID && !hasParent {
+		if !*f.ParentID && hasParent {
 			return false
 		}
 	}

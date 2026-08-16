@@ -172,7 +172,6 @@ func (s *CategoryService) Delete(ctx context.Context, id string) error {
 
 // List returns categories matching the filter.
 func (s *CategoryService) List(ctx context.Context, f model.CategoryFilter) ([]*model.Category, error) {
-	f.ParentID = nil
 	return s.store.List(ctx, f)
 }
 
