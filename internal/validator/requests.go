@@ -67,7 +67,7 @@ func (r CreateTransactionRequest) Validate() (ve model.ValidationErrors) {
 	if r.CategoryID = trimSpace(r.CategoryID); r.CategoryID == "" {
 		ve = append(ve, model.ValidationError{Field: "category_id", Message: "required"})
 	}
-	if r.Amount < 0 {
+	if r.Amount <= 0 {
 		ve = append(ve, model.ValidationError{Field: "amount", Message: "must be positive"})
 	}
 	if r.Type != "credit" && r.Type != "debit" {

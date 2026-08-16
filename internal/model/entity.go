@@ -139,7 +139,7 @@ func (t *Transaction) NetAmount() float64 {
 	if t.Type == TransactionTypeCredit {
 		return t.Amount
 	}
-	return t.Amount
+	return -t.Amount
 }
 
 // Transfer represents a transfer between accounts.
