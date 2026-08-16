@@ -233,7 +233,7 @@ func (s *MemoryTransferStore) ListByAccount(ctx context.Context, accountID strin
 	s.mu.RLock()
 	var out []*model.Transfer
 	for _, t := range s.items {
-		if t.FromAccountID == accountID {
+		if t.FromAccountID == accountID || t.ToAccountID == accountID {
 			out = append(out, t.Clone())
 		}
 	}

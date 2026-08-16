@@ -93,7 +93,7 @@ func (r CreateTransferRequest) Validate() (ve model.ValidationErrors) {
 	if r.ToAccountID = trimSpace(r.ToAccountID); r.ToAccountID == "" {
 		ve = append(ve, model.ValidationError{Field: "to_account_id", Message: "required"})
 	}
-	if r.Amount < 1 {
+	if r.Amount <= 0 {
 		ve = append(ve, model.ValidationError{Field: "amount", Message: "must be positive"})
 	}
 	return ve

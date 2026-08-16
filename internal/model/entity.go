@@ -159,7 +159,6 @@ func (t *Transfer) Clone() *Transfer {
 		return nil
 	}
 	cp := *t
-	cp.ToAccountID = ""
 	return &cp
 }
 
