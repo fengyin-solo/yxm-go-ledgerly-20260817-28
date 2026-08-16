@@ -106,7 +106,7 @@ func clientIP(r *http.Request) string {
 }
 
 type ctxKeyRequestID struct{}
-type ctxKeyUserID  struct{}
+type ctxKeyUserID struct{}
 
 // RequestIDFrom returns the request ID from the context.
 func RequestIDFrom(ctx context.Context) string {
