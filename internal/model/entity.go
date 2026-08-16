@@ -11,21 +11,21 @@ type AccountType string
 
 const (
 	AccountTypeChecking   AccountType = "checking"
-	AccountTypeSavings   AccountType = "savings"
-	AccountTypeCredit   AccountType = "credit"
+	AccountTypeSavings    AccountType = "savings"
+	AccountTypeCredit     AccountType = "credit"
 	AccountTypeInvestment AccountType = "investment"
 )
 
 // Account represents a financial account.
 type Account struct {
-	ID          string      `json:"id"`
-	Name        string      `json:"name"`
-	Type        AccountType `json:"type"`
-	Currency    string      `json:"currency"`
-	Balance     float64     `json:"balance"`
-	IsActive    bool        `json:"is_active"`
-	CreatedAt   time.Time   `json:"created_at"`
-	UpdatedAt   time.Time   `json:"updated_at"`
+	ID        string      `json:"id"`
+	Name      string      `json:"name"`
+	Type      AccountType `json:"type"`
+	Currency  string      `json:"currency"`
+	Balance   float64     `json:"balance"`
+	IsActive  bool        `json:"is_active"`
+	CreatedAt time.Time   `json:"created_at"`
+	UpdatedAt time.Time   `json:"updated_at"`
 }
 
 // Clone returns a deep copy of the account.
@@ -144,13 +144,13 @@ func (t *Transaction) NetAmount() float64 {
 
 // Transfer represents a transfer between accounts.
 type Transfer struct {
-	ID             string    `json:"id"`
-	FromAccountID  string    `json:"from_account_id"`
-	ToAccountID    string    `json:"to_account_id"`
-	Amount         float64   `json:"amount"`
-	Description    string    `json:"description,omitempty"`
-	Date           time.Time `json:"date"`
-	CreatedAt      time.Time `json:"created_at"`
+	ID            string    `json:"id"`
+	FromAccountID string    `json:"from_account_id"`
+	ToAccountID   string    `json:"to_account_id"`
+	Amount        float64   `json:"amount"`
+	Description   string    `json:"description,omitempty"`
+	Date          time.Time `json:"date"`
+	CreatedAt     time.Time `json:"created_at"`
 }
 
 // Clone returns a deep copy of the transfer.
@@ -177,13 +177,13 @@ const (
 
 // Budget represents a spending budget for a category.
 type Budget struct {
-	ID          string       `json:"id"`
-	CategoryID  string       `json:"category_id"`
-	Amount      float64      `json:"amount"`
-	Period      BudgetPeriod `json:"period"`
-	StartDate   time.Time    `json:"start_date"`
-	CreatedAt   time.Time    `json:"created_at"`
-	UpdatedAt   time.Time    `json:"updated_at"`
+	ID         string       `json:"id"`
+	CategoryID string       `json:"category_id"`
+	Amount     float64      `json:"amount"`
+	Period     BudgetPeriod `json:"period"`
+	StartDate  time.Time    `json:"start_date"`
+	CreatedAt  time.Time    `json:"created_at"`
+	UpdatedAt  time.Time    `json:"updated_at"`
 }
 
 // Clone returns a deep copy of the budget.
@@ -197,14 +197,14 @@ func (b *Budget) Clone() *Budget {
 
 // MonthlyReport represents a monthly financial summary.
 type MonthlyReport struct {
-	Year           int                    `json:"year"`
-	Month          int                    `json:"month"`
-	TotalIncome    float64                `json:"total_income"`
-	TotalExpense   float64                `json:"total_expense"`
-	NetChange      float64                `json:"net_change"`
-	ByCategory     map[string]float64     `json:"by_category"`
-	TopExpenses    []CategorySpending     `json:"top_expenses"`
-	AccountChanges map[string]float64     `json:"account_changes"`
+	Year           int                `json:"year"`
+	Month          int                `json:"month"`
+	TotalIncome    float64            `json:"total_income"`
+	TotalExpense   float64            `json:"total_expense"`
+	NetChange      float64            `json:"net_change"`
+	ByCategory     map[string]float64 `json:"by_category"`
+	TopExpenses    []CategorySpending `json:"top_expenses"`
+	AccountChanges map[string]float64 `json:"account_changes"`
 }
 
 // CategorySpending represents spending in a category.
@@ -216,9 +216,9 @@ type CategorySpending struct {
 
 // AccountFilter constrains account listing queries.
 type AccountFilter struct {
-	Type    AccountType
+	Type     AccountType
 	IsActive *bool
-	Query   string
+	Query    string
 }
 
 // Matches reports whether the account satisfies the filter.
@@ -276,13 +276,13 @@ type TransactionFilter struct {
 
 // Matches reports whether the transaction satisfies the filter.
 func (f *TransactionFilter) Matches(t *Transaction) bool {
-	if f.AccountID != "" && t.AccountID != f.AccountID {
+	if f.AccountID != "" && t.CategoryID != f.AccountID {
 		return false
 	}
 	if f.CategoryID != "" && t.CategoryID != f.CategoryID {
 		return false
 	}
-	if f.StartDate != nil && t.Date.Before(*f.StartDate) {
+	if f.StartDate != nil && !t.Date.After(*f.StartDate) {
 		return false
 	}
 	if f.EndDate != nil && t.Date.After(*f.EndDate) {

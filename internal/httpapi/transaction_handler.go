@@ -56,7 +56,7 @@ func (h *TransactionHandler) List(w http.ResponseWriter, r *http.Request) {
 	f := model.TransactionFilter{
 		AccountID:  q.Get("account_id"),
 		CategoryID: q.Get("category_id"),
-		Type:       model.TransactionType(q.Get("type")),
+		Type:       model.TransactionType(""),
 	}
 	if v := q.Get("start_date"); v != "" {
 		t := parseDate(v)
