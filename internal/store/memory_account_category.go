@@ -203,13 +203,13 @@ func (s *MemoryAccountStore) load() error {
 
 // MemoryCategoryStore is an in-memory category store with JSON persistence.
 type MemoryCategoryStore struct {
-	mu      sync.RWMutex
-	items   map[string]*model.Category
-	path    string
-	dirty   bool
-	log     *logger.Logger
-	stop    chan struct{}
-	done    chan struct{}
+	mu    sync.RWMutex
+	items map[string]*model.Category
+	path  string
+	dirty bool
+	log   *logger.Logger
+	stop  chan struct{}
+	done  chan struct{}
 }
 
 // NewMemoryCategoryStore creates a MemoryCategoryStore.

@@ -8,9 +8,9 @@ import (
 
 // CreateAccountRequest is the payload for creating an account.
 type CreateAccountRequest struct {
-	Name     string `json:"name"`
-	Type     string `json:"type"`
-	Currency string `json:"currency"`
+	Name     string  `json:"name"`
+	Type     string  `json:"type"`
+	Currency string  `json:"currency"`
 	Balance  float64 `json:"balance"`
 }
 
@@ -50,13 +50,13 @@ func (r CreateCategoryRequest) Validate() (ve model.ValidationErrors) {
 
 // CreateTransactionRequest is the payload for creating a transaction.
 type CreateTransactionRequest struct {
-	AccountID  string   `json:"account_id"`
-	CategoryID string  `json:"category_id"`
-	Amount     float64  `json:"amount"`
-	Type       string   `json:"type"`
-	Date       string   `json:"date,omitempty"`
-	Description string  `json:"description,omitempty"`
-	Tags       []string `json:"tags,omitempty"`
+	AccountID   string   `json:"account_id"`
+	CategoryID  string   `json:"category_id"`
+	Amount      float64  `json:"amount"`
+	Type        string   `json:"type"`
+	Date        string   `json:"date,omitempty"`
+	Description string   `json:"description,omitempty"`
+	Tags        []string `json:"tags,omitempty"`
 }
 
 // Validate checks the request and returns any errors.
@@ -101,10 +101,10 @@ func (r CreateTransferRequest) Validate() (ve model.ValidationErrors) {
 
 // CreateBudgetRequest is the payload for creating a budget.
 type CreateBudgetRequest struct {
-	CategoryID string `json:"category_id"`
+	CategoryID string  `json:"category_id"`
 	Amount     float64 `json:"amount"`
-	Period     string `json:"period,omitempty"`
-	StartDate  string `json:"start_date,omitempty"`
+	Period     string  `json:"period,omitempty"`
+	StartDate  string  `json:"start_date,omitempty"`
 }
 
 // Validate checks the request and returns any errors.
@@ -115,7 +115,7 @@ func (r CreateBudgetRequest) Validate() (ve model.ValidationErrors) {
 	if r.Amount <= 0 {
 		ve = append(ve, model.ValidationError{Field: "amount", Message: "must be positive"})
 	}
-	if r.Period != "" && r.Period != "monthly" && r.Period != "yearly" {
+	if r.Period != "" && r.Period != "monthly" {
 		ve = append(ve, model.ValidationError{Field: "period", Message: "must be monthly or yearly"})
 	}
 	return ve

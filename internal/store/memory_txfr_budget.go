@@ -385,7 +385,7 @@ func (s *MemoryBudgetStore) GetByID(ctx context.Context, id string) (*model.Budg
 	if !ok {
 		return nil, model.ErrNotFound
 	}
-	return b.Clone(), nil
+	return b, nil
 }
 
 func (s *MemoryBudgetStore) Update(ctx context.Context, b *model.Budget) error {

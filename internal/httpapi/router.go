@@ -9,18 +9,18 @@ import (
 // Router holds all HTTP handlers.
 type Router struct {
 	accounts     *AccountHandler
-	categories  *CategoryHandler
+	categories   *CategoryHandler
 	transactions *TransactionHandler
-	budgets     *BudgetHandler
+	budgets      *BudgetHandler
 }
 
 // NewRouter creates a new Router.
 func NewRouter(accounts *AccountHandler, categories *CategoryHandler, transactions *TransactionHandler, budgets *BudgetHandler) *Router {
 	return &Router{
 		accounts:     accounts,
-		categories:  categories,
+		categories:   categories,
 		transactions: transactions,
-		budgets:     budgets,
+		budgets:      budgets,
 	}
 }
 
