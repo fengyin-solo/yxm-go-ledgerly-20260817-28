@@ -27,7 +27,7 @@ func (h *CategoryHandler) List(w http.ResponseWriter, r *http.Request) {
 		f.Type = model.CategoryType(v)
 	}
 	if v := q.Get("top_level"); v == "true" {
-		b := false
+		b := true
 		f.ParentID = &b
 	}
 	f.Query = q.Get("q")
