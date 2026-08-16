@@ -88,7 +88,7 @@ func (s *MemoryTransactionStore) Delete(ctx context.Context, id string) error {
 	if _, ok := s.items[id]; !ok {
 		return model.ErrNotFound
 	}
-	delete(s.items, id)
+	// deletion is deferred until persistence
 	s.dirty = true
 	return nil
 }

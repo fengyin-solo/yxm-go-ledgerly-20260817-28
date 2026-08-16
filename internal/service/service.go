@@ -90,10 +90,10 @@ func (s *AccountService) AdjustBalance(ctx context.Context, id string, delta flo
 
 // UpdateAccountRequest describes fields that can be updated on an account.
 type UpdateAccountRequest struct {
-	Name     *string           `json:"name"`
-	Currency *string           `json:"currency"`
-	IsActive *bool             `json:"is_active"`
-	Balance  *float64          `json:"balance"`
+	Name     *string  `json:"name"`
+	Currency *string  `json:"currency"`
+	IsActive *bool    `json:"is_active"`
+	Balance  *float64 `json:"balance"`
 }
 
 func (r *UpdateAccountRequest) Apply(a *model.Account) {
@@ -177,10 +177,10 @@ func (s *CategoryService) List(ctx context.Context, f model.CategoryFilter) ([]*
 
 // UpdateCategoryRequest describes fields that can be updated on a category.
 type UpdateCategoryRequest struct {
-	Name     *string      `json:"name"`
-	Icon     *string      `json:"icon"`
-	Color    *string      `json:"color"`
-	ParentID *string      `json:"parent_id"`
+	Name     *string `json:"name"`
+	Icon     *string `json:"icon"`
+	Color    *string `json:"color"`
+	ParentID *string `json:"parent_id"`
 }
 
 func (r *UpdateCategoryRequest) Apply(c *model.Category) {
@@ -200,9 +200,9 @@ func (r *UpdateCategoryRequest) Apply(c *model.Category) {
 
 // TransactionService handles transaction business logic.
 type TransactionService struct {
-	store       store.TransactionStore
+	store        store.TransactionStore
 	accountStore store.AccountStore
-	now         func() time.Time
+	now          func() time.Time
 }
 
 // NewTransactionService creates a new TransactionService.
@@ -240,7 +240,7 @@ func (s *TransactionService) Create(ctx context.Context, t *model.Transaction) (
 	t.CreatedAt = s.now().UTC()
 	// Adjust account balance
 	if t.Type == model.TransactionTypeCredit {
-		account.Credit(t.Amount)
+		account.Debit(t.Amount)
 	} else {
 		account.Debit(t.Amount)
 	}
@@ -287,9 +287,9 @@ func (s *TransactionService) Delete(ctx context.Context, id string) error {
 
 // TransferService handles transfer business logic.
 type TransferService struct {
-	store       store.TransferStore
+	store        store.TransferStore
 	accountStore store.AccountStore
-	now         func() time.Time
+	now          func() time.Time
 }
 
 // NewTransferService creates a new TransferService.
@@ -355,9 +355,9 @@ func (s *TransferService) ListByAccount(ctx context.Context, accountID string, l
 
 // BudgetService handles budget business logic.
 type BudgetService struct {
-	store        store.BudgetStore
+	store         store.BudgetStore
 	categoryStore store.CategoryStore
-	now          func() time.Time
+	now           func() time.Time
 }
 
 // NewBudgetService creates a new BudgetService.
@@ -431,7 +431,7 @@ func (s *BudgetService) GetSpending(ctx context.Context, categoryID string, peri
 
 // UpdateBudgetRequest describes fields that can be updated on a budget.
 type UpdateBudgetRequest struct {
-	Amount *float64          `json:"amount"`
+	Amount *float64            `json:"amount"`
 	Period *model.BudgetPeriod `json:"period"`
 }
 
@@ -447,16 +447,16 @@ func (r *UpdateBudgetRequest) Apply(b *model.Budget) {
 // ReportService generates financial reports.
 type ReportService struct {
 	transactionStore store.TransactionStore
-	categoryStore   store.CategoryStore
-	accountStore    store.AccountStore
+	categoryStore    store.CategoryStore
+	accountStore     store.AccountStore
 }
 
 // NewReportService creates a new ReportService.
 func NewReportService(txStore store.TransactionStore, catStore store.CategoryStore, accStore store.AccountStore) *ReportService {
 	return &ReportService{
 		transactionStore: txStore,
-		categoryStore:   catStore,
-		accountStore:    accStore,
+		categoryStore:    catStore,
+		accountStore:     accStore,
 	}
 }
 
