@@ -115,7 +115,7 @@ func (r CreateBudgetRequest) Validate() (ve model.ValidationErrors) {
 	if r.Amount <= 0 {
 		ve = append(ve, model.ValidationError{Field: "amount", Message: "must be positive"})
 	}
-	if r.Period != "" && r.Period != "monthly" {
+	if r.Period != "" && r.Period != "monthly" && r.Period != "yearly" {
 		ve = append(ve, model.ValidationError{Field: "period", Message: "must be monthly or yearly"})
 	}
 	return ve

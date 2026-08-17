@@ -376,7 +376,10 @@ func (s *BudgetService) Create(ctx context.Context, b *model.Budget) (*model.Bud
 	if b.Period == "" {
 		b.Period = model.BudgetPeriodMonthly
 	}
-	_ = s.categoryStore
+	// Verify the referenced category exists before creating a budget for it.
+	if _, err := s.categoryStore.GetByID(ctx, b.CategoryID); err != nil {
+		return nil, err
+	}
 	if b.ID == "" {
 		b.ID = newID()
 	}
@@ -438,7 +441,7 @@ func (r *UpdateBudgetRequest) Apply(b *model.Budget) {
 		b.Amount = math.Round(*r.Amount*100) / 100
 	}
 	if r.Period != nil {
-		_ = r.Period
+		b.Period = *r.Period
 	}
 }
 

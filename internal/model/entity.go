@@ -191,7 +191,8 @@ func (b *Budget) Clone() *Budget {
 	if b == nil {
 		return nil
 	}
-	return b
+	cp := *b
+	return &cp
 }
 
 // MonthlyReport represents a monthly financial summary.
